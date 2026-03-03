@@ -75,7 +75,17 @@ You need to have the Flutter SDK installed on your system.
 
 ## 📱 Screenshots
 
-*(Screenshots coming soon...)*
+<p align="center">
+  <img src="docs/screenshots/Screenshot_2026-03-03-18-39-40-54_cfd1a35f905c12d4fb48f478f1baf404.jpg" width="200" style="margin: 5px;">
+  <img src="docs/screenshots/Screenshot_2026-03-03-18-39-45-00_cfd1a35f905c12d4fb48f478f1baf404.jpg" width="200" style="margin: 5px;">
+  <img src="docs/screenshots/Screenshot_2026-03-03-18-39-48-26_cfd1a35f905c12d4fb48f478f1baf404.jpg" width="200" style="margin: 5px;">
+  <img src="docs/screenshots/Screenshot_2026-03-03-18-40-03-74_cfd1a35f905c12d4fb48f478f1baf404.jpg" width="200" style="margin: 5px;">
+  <img src="docs/screenshots/Screenshot_2026-03-03-18-40-11-49_cfd1a35f905c12d4fb48f478f1baf404.jpg" width="200" style="margin: 5px;">
+  <img src="docs/screenshots/Screenshot_2026-03-03-18-40-14-76_cfd1a35f905c12d4fb48f478f1baf404.jpg" width="200" style="margin: 5px;">
+  <img src="docs/screenshots/Screenshot_2026-03-03-18-40-17-81_cfd1a35f905c12d4fb48f478f1baf404.jpg" width="200" style="margin: 5px;">
+  <img src="docs/screenshots/Screenshot_2026-03-03-18-40-20-73_cfd1a35f905c12d4fb48f478f1baf404.jpg" width="200" style="margin: 5px;">
+  <img src="docs/screenshots/Screenshot_2026-03-03-18-40-46-34_cfd1a35f905c12d4fb48f478f1baf404.jpg" width="200" style="margin: 5px;">
+</p>
 
 ## 🤝 Contributing
 
