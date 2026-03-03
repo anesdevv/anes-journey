@@ -1,0 +1,5 @@
+Analyzing Portfolio...                                          
+
+   info - Statements in an if should be enclosed in a block - lib\modules\language\language_screen.dart:28:9 - curly_braces_in_flow_control_structures
+   info - Statements in an if should be enclosed in a block - lib\modules\language\language_screen.dart:34:9 - curly_braces_in_flow_control_structures
+
