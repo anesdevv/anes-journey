@@ -56,38 +56,39 @@ class AnesJourneyApp extends StatelessWidget {
       title: 'Anes Journey',
       theme: ThemeData(
         brightness: Brightness.dark,
-        scaffoldBackgroundColor: const Color(0xFF000000),
+        scaffoldBackgroundColor: const Color(0xFF030303), // Deepest dark gray
         colorScheme: const ColorScheme.dark(
-          primary: Color(0xFFE53935), // Red 600
-          surface: Color(0xFF111111),
+          primary: Color(0xFFFF453A), // Vibrant Neon Red
+          surface: Color(0xFF161616),
         ),
         fontFamily: 'Inter',
         appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFF111111),
+          backgroundColor: Color(0xFF030303),
           elevation: 0,
         ),
         cardTheme: CardThemeData(
-          color: const Color(0xFF111111),
+          color: const Color(0xFF161616),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0),
+            borderRadius: BorderRadius.circular(16.0),
           ),
         ),
         dialogTheme: DialogThemeData(
-          backgroundColor: const Color(0xFF111111),
+          backgroundColor: const Color(0xFF161616),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0),
+            borderRadius: BorderRadius.circular(16.0),
           ),
         ),
         bottomSheetTheme: const BottomSheetThemeData(
-          backgroundColor: Color(0xFF111111),
+          backgroundColor: Color(0xFF161616),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(12.0)),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
           ),
         ),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-          backgroundColor: Color(0xFF111111),
-          selectedItemColor: Color(0xFFE53935),
+          backgroundColor: Color(0xFF0A0A0A),
+          selectedItemColor: Color(0xFFFF453A),
           unselectedItemColor: Colors.grey,
+          elevation: 0,
         ),
       ),
       home: const MainNavigationScreen(),
@@ -120,31 +121,47 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       floatingActionButton: _currentIndex == 0
           ? FloatingActionButton(
               onPressed: () => _showQuickAddModal(context),
-              backgroundColor: const Color(0xFFE53935),
+              backgroundColor: const Color(0xFFFF453A),
               child: const Icon(Icons.add, color: Colors.white),
             )
           : null,
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        type: BottomNavigationBarType.fixed,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.dashboard), label: 'Home'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_month),
-            label: 'Calendar',
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(
+              color: Colors.white.withValues(alpha: 0.05),
+              width: 1.0,
+            ),
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.checklist), label: 'To-Do'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.track_changes),
-            label: 'Tracker',
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.more_horiz), label: 'More'),
-        ],
+        ),
+        child: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          type: BottomNavigationBarType.fixed,
+          onTap: (index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.dashboard), label: 'Home'),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.calendar_month),
+              label: 'Calendar',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.checklist),
+              label: 'To-Do',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.track_changes),
+              label: 'Tracker',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.more_horiz),
+              label: 'More',
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -152,7 +169,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   void _showQuickAddModal(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      backgroundColor: const Color(0xFF111111),
+      backgroundColor: const Color(0xFF161616),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
@@ -263,8 +280,8 @@ class TrackerTabsScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Trackers'),
           bottom: const TabBar(
-            indicatorColor: Color(0xFFE53935),
-            labelColor: Color(0xFFE53935),
+            indicatorColor: Color(0xFFFF453A),
+            labelColor: Color(0xFFFF453A),
             unselectedLabelColor: Colors.grey,
             tabs: [
               Tab(text: 'Prayers'),
@@ -296,10 +313,14 @@ class MoreMenuScreen extends StatelessWidget {
       body: ListView(
         children: [
           ListTile(
-            leading: const Icon(Icons.language, color: Color(0xFFE53935)),
+            leading: const Icon(Icons.language, color: Color(0xFFFF453A)),
             title: const Text('German Ausbildung'),
             subtitle: const Text('Track study sessions and topics'),
-            trailing: const Icon(Icons.arrow_forward_ios, color: Colors.grey),
+            trailing: const Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.grey,
+              size: 16,
+            ),
             onTap: () {
               Navigator.push(
                 context,
@@ -307,12 +328,16 @@ class MoreMenuScreen extends StatelessWidget {
               );
             },
           ),
-          const Divider(color: Color(0xFF333333)),
+          const Divider(color: Color(0xFF222222)),
           ListTile(
-            leading: const Icon(Icons.book, color: Color(0xFFE53935)),
+            leading: const Icon(Icons.book, color: Color(0xFFFF453A)),
             title: const Text('Journal'),
             subtitle: const Text('Daily entries and mood tracking'),
-            trailing: const Icon(Icons.arrow_forward_ios, color: Colors.grey),
+            trailing: const Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.grey,
+              size: 16,
+            ),
             onTap: () {
               Navigator.push(
                 context,
@@ -320,9 +345,9 @@ class MoreMenuScreen extends StatelessWidget {
               );
             },
           ),
-          const Divider(color: Color(0xFF333333)),
+          const Divider(color: Color(0xFF222222)),
           ListTile(
-            leading: const Icon(Icons.file_download, color: Color(0xFFE53935)),
+            leading: const Icon(Icons.file_download, color: Color(0xFFFF453A)),
             title: const Text(
               'Export Data',
               style: TextStyle(color: Colors.white),
@@ -331,7 +356,11 @@ class MoreMenuScreen extends StatelessWidget {
               'Export all local data to JSON',
               style: TextStyle(color: Colors.grey),
             ),
-            trailing: const Icon(Icons.arrow_forward_ios, color: Colors.grey),
+            trailing: const Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.grey,
+              size: 16,
+            ),
             onTap: () async {
               try {
                 final exportService = ExportService();
@@ -359,9 +388,9 @@ class MoreMenuScreen extends StatelessWidget {
               }
             },
           ),
-          const Divider(color: Color(0xFF333333)),
+          const Divider(color: Color(0xFF222222)),
           ListTile(
-            leading: const Icon(Icons.info_outline, color: Color(0xFFE53935)),
+            leading: const Icon(Icons.info_outline, color: Color(0xFFFF453A)),
             title: const Text(
               'About App',
               style: TextStyle(color: Colors.white),
@@ -370,7 +399,11 @@ class MoreMenuScreen extends StatelessWidget {
               'App details and creator info',
               style: TextStyle(color: Colors.grey),
             ),
-            trailing: const Icon(Icons.arrow_forward_ios, color: Colors.grey),
+            trailing: const Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.grey,
+              size: 16,
+            ),
             onTap: () {
               Navigator.push(
                 context,

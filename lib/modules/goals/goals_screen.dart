@@ -54,6 +54,73 @@ class _GoalsScreenState extends State<GoalsScreen> {
     _firestoreService.saveGoal(goal);
   }
 
+  void _showEditGoalDialog(Goal goal) {
+    final titleController = TextEditingController(text: goal.title);
+    String selectedType =
+        goal.type.substring(0, 1).toUpperCase() + goal.type.substring(1);
+
+    showDialog(
+      context: context,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setStateBuilder) {
+          return AlertDialog(
+            title: const Text('Edit Goal'),
+            backgroundColor: const Color(0xFF111111),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: titleController,
+                  decoration: const InputDecoration(labelText: 'Goal Title'),
+                ),
+                const SizedBox(height: 16),
+                DropdownButtonFormField<String>(
+                  initialValue: selectedType,
+                  dropdownColor: const Color(0xFF111111),
+                  decoration: const InputDecoration(labelText: 'Type'),
+                  items: ['Weekly', 'Monthly', 'Yearly'].map((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  onChanged: (newValue) {
+                    setStateBuilder(() {
+                      selectedType = newValue!;
+                    });
+                  },
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Cancel'),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFE53935),
+                ),
+                onPressed: () {
+                  if (titleController.text.isNotEmpty) {
+                    goal.title = titleController.text;
+                    goal.type = selectedType.toLowerCase();
+                    _firestoreService.saveGoal(goal);
+                  }
+                  Navigator.pop(context);
+                },
+                child: const Text(
+                  'Save',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
   void _showAddGoalDialog() {
     final titleController = TextEditingController();
     String selectedType = 'Weekly';
@@ -146,7 +213,44 @@ class _GoalsScreenState extends State<GoalsScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(goal.title, style: const TextStyle(fontSize: 16)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          goal.title,
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ),
+                      PopupMenuButton<String>(
+                        icon: const Icon(Icons.more_vert, color: Colors.grey),
+                        color: const Color(0xFF111111),
+                        onSelected: (value) {
+                          if (value == 'edit') {
+                            _showEditGoalDialog(goal);
+                          } else if (value == 'delete') {
+                            _firestoreService.deleteGoal(goal.id);
+                          }
+                        },
+                        itemBuilder: (context) => [
+                          const PopupMenuItem(
+                            value: 'edit',
+                            child: Text(
+                              'Edit',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                          const PopupMenuItem(
+                            value: 'delete',
+                            child: Text(
+                              'Delete',
+                              style: TextStyle(color: Color(0xFFE53935)),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                   Row(
                     children: [
                       Expanded(

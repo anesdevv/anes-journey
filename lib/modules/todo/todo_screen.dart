@@ -79,6 +79,42 @@ class _TodoScreenState extends State<TodoScreen> {
     _firestoreService.saveTodo(todo);
   }
 
+  void _showEditTodoDialog(Todo todo) {
+    final titleController = TextEditingController(text: todo.title);
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Edit Task'),
+        backgroundColor: const Color(0xFF111111),
+        content: TextField(
+          controller: titleController,
+          decoration: const InputDecoration(labelText: 'Task Title'),
+          autofocus: true,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFFE53935),
+            ),
+            onPressed: () {
+              if (titleController.text.isNotEmpty) {
+                todo.title = titleController.text;
+                _firestoreService.saveTodo(todo);
+              }
+              Navigator.pop(context);
+            },
+            child: const Text('Save', style: TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
+    );
+  }
+
   void _showAddTodoDialog() {
     final titleController = TextEditingController();
 
@@ -127,7 +163,15 @@ class _TodoScreenState extends State<TodoScreen> {
               itemCount: _todayTodos.length,
               itemBuilder: (context, index) {
                 final todo = _todayTodos[index];
-                return CheckboxListTile(
+                return ListTile(
+                  leading: Checkbox(
+                    value: todo.isCompleted,
+                    activeColor: const Color(0xFFE53935),
+                    checkColor: Colors.white,
+                    onChanged: (bool? value) {
+                      _toggleTodo(todo);
+                    },
+                  ),
                   title: Text(
                     todo.title,
                     style: TextStyle(
@@ -137,12 +181,34 @@ class _TodoScreenState extends State<TodoScreen> {
                       color: todo.isCompleted ? Colors.grey : Colors.white,
                     ),
                   ),
-                  value: todo.isCompleted,
-                  activeColor: const Color(0xFFE53935),
-                  checkColor: Colors.white,
-                  onChanged: (bool? value) {
-                    _toggleTodo(todo);
-                  },
+                  onTap: () => _toggleTodo(todo),
+                  trailing: PopupMenuButton<String>(
+                    icon: const Icon(Icons.more_vert, color: Colors.grey),
+                    color: const Color(0xFF111111),
+                    onSelected: (value) {
+                      if (value == 'edit') {
+                        _showEditTodoDialog(todo);
+                      } else if (value == 'delete') {
+                        _firestoreService.deleteTodo(todo.id);
+                      }
+                    },
+                    itemBuilder: (context) => [
+                      const PopupMenuItem(
+                        value: 'edit',
+                        child: Text(
+                          'Edit',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      const PopupMenuItem(
+                        value: 'delete',
+                        child: Text(
+                          'Delete',
+                          style: TextStyle(color: Color(0xFFE53935)),
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               },
             ),

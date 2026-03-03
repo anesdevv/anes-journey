@@ -17,13 +17,17 @@ class DashboardCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 16.0),
       decoration: BoxDecoration(
-        color: const Color(0xFF111111),
-        borderRadius: BorderRadius.circular(12.0),
-        boxShadow: const [
+        color: const Color(0xFF161616),
+        borderRadius: BorderRadius.circular(16.0),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.05),
+          width: 1.0,
+        ),
+        boxShadow: [
           BoxShadow(
-            color: Colors.black26,
-            blurRadius: 4.0,
-            offset: Offset(0, 2),
+            color: Colors.black.withValues(alpha: 0.2),
+            blurRadius: 8.0,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
@@ -49,7 +53,7 @@ class SectionHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(icon, color: const Color(0xFFE53935), size: 20),
+        Icon(icon, color: const Color(0xFFFF453A), size: 20),
         const SizedBox(width: 8),
         Text(
           title,
@@ -85,7 +89,7 @@ class PrayerIndicator extends StatelessWidget {
         statusIcon = Icons.warning_rounded;
         break;
       case 'missed':
-        statusColor = const Color(0xFFE53935); // Red
+        statusColor = const Color(0xFFFF453A); // Neon Red
         statusIcon = Icons.cancel;
         break;
       case 'pending':
@@ -124,9 +128,9 @@ class HabitStreakBadge extends StatelessWidget {
       margin: const EdgeInsets.only(right: 12.0),
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
       decoration: BoxDecoration(
-        color: const Color(0xFF222222),
+        color: const Color(0xFF1C1C1E),
         borderRadius: BorderRadius.circular(12.0),
-        border: Border.all(color: const Color(0xFF333333)),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -145,7 +149,7 @@ class HabitStreakBadge extends StatelessWidget {
             children: [
               const Icon(
                 Icons.local_fire_department,
-                color: Color(0xFFE53935),
+                color: Color(0xFFFF453A),
                 size: 16,
               ),
               const SizedBox(width: 4),
@@ -194,9 +198,9 @@ class ProgressBar extends StatelessWidget {
         const SizedBox(height: 8),
         LinearProgressIndicator(
           value: progress,
-          backgroundColor: const Color(0xFF333333),
-          color: const Color(0xFFE53935),
-          minHeight: 8,
+          backgroundColor: const Color(0xFF222222),
+          color: const Color(0xFFFF453A),
+          minHeight: 6,
           borderRadius: BorderRadius.circular(4),
         ),
       ],

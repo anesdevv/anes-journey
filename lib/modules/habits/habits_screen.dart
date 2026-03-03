@@ -55,6 +55,42 @@ class _HabitsScreenState extends State<HabitsScreen> {
     _firestoreService.saveHabit(habit);
   }
 
+  void _showEditHabitDialog(Habit habit) {
+    final titleController = TextEditingController(text: habit.title);
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Edit Habit'),
+        backgroundColor: const Color(0xFF111111),
+        content: TextField(
+          controller: titleController,
+          decoration: const InputDecoration(labelText: 'Habit Title'),
+          autofocus: true,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFFE53935),
+            ),
+            onPressed: () {
+              if (titleController.text.isNotEmpty) {
+                habit.title = titleController.text;
+                _firestoreService.saveHabit(habit);
+              }
+              Navigator.pop(context);
+            },
+            child: const Text('Save', style: TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
+    );
+  }
+
   void _showAddHabitDialog() {
     final titleController = TextEditingController();
 
@@ -132,6 +168,33 @@ class _HabitsScreenState extends State<HabitsScreen> {
                           ),
                           onPressed: () => _incrementStreak(habit),
                           tooltip: 'Done',
+                        ),
+                        PopupMenuButton<String>(
+                          icon: const Icon(Icons.more_vert, color: Colors.grey),
+                          color: const Color(0xFF111111),
+                          onSelected: (value) {
+                            if (value == 'edit') {
+                              _showEditHabitDialog(habit);
+                            } else if (value == 'delete') {
+                              _firestoreService.deleteHabit(habit.id);
+                            }
+                          },
+                          itemBuilder: (context) => [
+                            const PopupMenuItem(
+                              value: 'edit',
+                              child: Text(
+                                'Edit',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                            const PopupMenuItem(
+                              value: 'delete',
+                              child: Text(
+                                'Delete',
+                                style: TextStyle(color: Color(0xFFE53935)),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

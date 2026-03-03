@@ -28,7 +28,7 @@ class Event {
 
 class Todo {
   final String id;
-  final String title;
+  String title;
   final DateTime dateCreated;
   bool isCompleted;
 
@@ -56,8 +56,8 @@ class Todo {
 
 class Goal {
   final String id;
-  final String title;
-  final String type; // 'yearly', 'monthly', 'weekly'
+  String title;
+  String type; // 'yearly', 'monthly', 'weekly'
   double progress;
 
   Goal({
@@ -84,7 +84,7 @@ class Goal {
 
 class Habit {
   final String id;
-  final String title;
+  String title;
   final String frequency; // 'daily'
   int streak;
 

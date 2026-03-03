@@ -1,6 +1,6 @@
 {
-    "name": "anes_journey",
-    "short_name": "anes_journey",
+    "name": "Anes Journey",
+    "short_name": "Anes Journey",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
